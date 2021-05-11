@@ -39,13 +39,13 @@ class Item(BaseModel):
     tax: Optional[float] = None # float, 선택
 ```
 
-쿼리 파라미터를 선언할 때와 마찬가지로 데이터 모델 클래스의 인자가 기본값을 가지면 선택 인자, 기본값이 없으면 필수 인자다.
+쿼리 매개변수를 선언할 때와 마찬가지로 데이터 모델 클래스의 인자가 기본값을 가지면 선택 인자, 기본값이 없으면 필수 인자다.
 
 
 
-**파라미터로 선언**
+**매개변수로 선언**
 
-작업 경로를 추가할 때, 쿼리 파라미터를 선언했을 때와 같은 방법으로 생성한 데이터 모델을 선언하면 된다.
+작업 경로를 추가할 때, 쿼리 매개변수를 선언했을 때와 같은 방법으로 생성한 데이터 모델을 선언하면 된다.
 
 ```python
 @app.post("/items/")
@@ -63,7 +63,7 @@ async def create_item(item: Item):
 - (필요하다면) 상응하는 타입으로 형변환을 한다.
 - 데이터를 검증한다.
   - 데이터가 유효하지 않다면, 잘못된 데이터가 어떤 것인지 명확하게 알려주는 에러를 반환하는 것이 좋다.
-- `item` 파라미터로 데이터를 받는다.
+- `item` 매개변수로 데이터를 받는다.
   - `Item` 데이터 모델 타입을 선언함으로써 편집기가 데이터 모델의 인자들의 값과 타입을 검증할 수 있게 도와준다.
 - 모델에 사용할 JSON 스키마를 정의하면, 프로젝트 내에 어떤 곳에서든 사용이 가능하다.
 - 여기서 스키마들은 생성된 OpenAPI의 스키마의 부분으로 문서의 UI에 자동으로 반영된다.
@@ -90,15 +90,15 @@ async def create_item(item: Item):
 
 경로 매개변수와 request body를 동시에 선언할 수 있다.
 
-FastAPI는 경로에 있는 경로 매개변수와 일치하는 함수 매개변수인지, request body로부터 가져와야하는 Pydantic 데이터 모델 클래스에 선언된 함수 파라미터들인지 구분한다.
+FastAPI는 경로에 있는 경로 매개변수와 일치하는 함수 매개변수인지, request body로부터 가져와야하는 Pydantic 데이터 모델 클래스에 선언된 함수 매개변수들인지 구분한다.
 
 ```python
 @app.put("/items/{item_id}")
-async def create_item(item_id: int, item: Item): # 함수 파라미터 item_id, item
+async def create_item(item_id: int, item: Item): # 함수 매개변수 item_id, item
     return {"item_id": item_id, **item.dict()}
 ```
 
-`item_id`는 경로에 있으므로 경로 파라미터이며, URL에서 값을 가져온다. `item`은 타입이 Pydantic 데이터 모델 클래스이므로 request body에서 값을 가져온다.
+`item_id`는 경로에 있으므로 경로 매개변수이며, URL에서 값을 가져온다. `item`은 타입이 Pydantic 데이터 모델 클래스이므로 request body에서 값을 가져온다.
 
 
 
